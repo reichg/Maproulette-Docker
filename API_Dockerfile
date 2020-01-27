@@ -29,7 +29,7 @@ WORKDIR /maproulette-api
 # RUN if [ "${VERSION}" != "LATEST" ]; then git checkout tags/${VERSION} ; fi
 
 # package Maproulette V2
-ARG APIHOST="maproulette.org"
+ARG APIHOST="localhost:9000"
 RUN echo ${APIHOST}
 RUN export API_HOST=${APIHOST};sbt clean compile dist
 RUN unzip -d / target/universal/MapRouletteAPI.zip
