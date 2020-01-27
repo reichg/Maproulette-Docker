@@ -1,0 +1,304 @@
+@import './variables.scss';
+
+// Buttons
+@mixin button-color($foreground-color, $background-color) {
+  color: $foreground-color;
+  border-color: $foreground-color;
+  background-color: $background-color;
+
+  svg {
+    fill: $foreground-color;
+  }
+}
+
+@mixin invert-on-hover($foreground-color, $background-color) {
+  @include button-color($foreground-color, $background-color);
+
+  &:enabled:hover, &:enabled:focus {
+    @include button-color($background-color, $foreground-color);
+  }
+
+  &.no-focus:focus:not(:hover) {
+    @include button-color($foreground-color, $background-color);
+  }
+
+  &.is-loading {
+    &:enabled:focus:after {
+      // Change spinner color. Bulma css has !important so we have to as well.
+      border-color: transparent transparent $background-color $background-color !important;
+    }
+  }
+}
+
+// Supplements arrow() from Bulma. You must still mixin arrow() as well.
+@mixin dropdown-arrow($size: 10px) {
+  height: $size;
+  width: $size;
+  transform: rotate(-45deg);
+  transform-origin: center;
+  transition: transform 0.25s;
+}
+
+@mixin triangle-up($size, $color) {
+  position: relative;
+  padding-top: $size;
+
+  &:before {
+    content:'';
+    display:block;
+    width:0;
+    height:0;
+    position:absolute;
+
+    border-bottom: $size solid $color;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+
+    top: 0;
+    left: $size * 1.5;
+  }
+}
+
+// helps display text content in a constrained area
+@mixin constrained-text-content() {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+@mixin markdown-content() {
+  p {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ul {
+    list-style-type: disc;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+
+    > li > ul {
+      list-style-type: circle;
+
+      > li > ul {
+        list-style-type: square;
+      }
+    }
+  }
+
+  ol {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    padding: 10px;
+    margin-bottom: 1rem;
+  }
+}
+
+@mixin busy-spinner-color($color) {
+  .busy-spinner-icon {
+    border-color: $color;
+    border-right-color: transparent;
+    border-top-color: transparent;
+  }
+}
+
+@mixin busy-spinner-size($size) {
+  .busy-spinner-icon {
+    width: $size;
+    height: $size;
+  }
+}
+
+@mixin basic-form-element-styling() {
+  border-color: $form-element-border-color;
+  border-width: 2px;
+  border-style: solid;
+  box-shadow: none;
+  border-radius: $radius-medium;
+  color: $grey;
+
+  &:hover, &:focus {
+    outline: none;
+    border-color: $grey-light;
+    box-shadow: none;
+  }
+
+  &[readonly], &[readonly]:hover, &[readonly]:focus {
+    outline: none;
+    border-color: $form-element-border-color;
+    box-shadow: none;
+  }
+}
+
+@mixin tag() {
+  font-family: inherit;
+  font-size: $size-7;
+  background-color: $grey-lightest;
+  color: $grey;
+  border: none;
+  border-radius: $radius-medium;
+  margin: 5px;
+  padding: 2px 5px 2px 10px;
+
+  .react-tagsinput-remove {
+    font-family: inherit;
+    color: $grey-darkest;
+
+    &:before {
+      margin-left: 5px;
+    }
+  }
+}
+
+// Note: image must be set as a background-image.
+@mixin circular-image() {
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@mixin styled-react-table() {
+  $table-border-color: $grey-lightest-more;
+  $table-border-width: 2px;
+  $table-header-font-size: $size-5;
+
+  .ReactTable {
+    border: none;
+
+    .rt-table {
+      border-radius: $radius-medium $radius-medium 0 0;
+
+      .rt-thead.-headerGroups {
+        background-color: $primary;
+        color: $white;
+        font-size: $table-header-font-size;
+        padding: 5px;
+
+        .rt-th {
+          border: none;
+        }
+
+        .table-status-bar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .button.csv-export {
+            @include invert-on-hover($white, $primary)
+          }
+        }
+      }
+
+      .rt-thead.-header {
+        background-color: $grey-lightest-less;
+        color: $grey;
+        font-weight: $weight-semibold;
+        font-size: $table-header-font-size;
+
+        box-shadow: none;
+
+        .rt-tr {
+          border-left: $table-border-width solid $grey-lightest-less;
+          border-right: $table-border-width solid $grey-lightest-less;
+        }
+
+        .rt-th {
+          border-width: $table-border-width;
+          border-color: $table-border-color;
+        }
+      }
+
+      .rt-tbody {
+        border-left: $table-border-width solid $table-border-color;
+        border-right: $table-border-width solid $table-border-color;
+        color: $grey;
+      }
+
+      .rt-tr-group {
+        border-width: $table-border-width;
+        border-color: $table-border-color;
+        border-left-width: $table-border-width;
+      }
+
+      .rt-td {
+        padding: 15px;
+        border-width: $table-border-width;
+        border-color: $table-border-color;
+
+        &.rt-expandable {
+          padding-top: 10px;
+
+          .rt-expander {
+            margin: 0 -5px;
+
+            &:after {
+              @include arrow($grey);
+              @include dropdown-arrow();
+              transform: rotate(225deg);
+              border-width: $table-border-width;
+            }
+
+            &.-open {
+              &:after {
+                transform: rotate(315deg);
+              }
+            }
+          }
+        }
+
+        svg.cell-icon {
+          width: 20px;
+          height: auto;
+        }
+      }
+    }
+
+    .pagination-bottom {
+      background-color: $grey-lightest-less;
+      padding: 5px;
+      color: $grey;
+      border-radius: 0 0 $radius-medium $radius-medium;
+
+      .-pagination {
+        border-top: none;
+        box-shadow: none;
+
+        .-btn {
+          border-radius: 20px;
+          height: 30px;
+          padding: 0 30px 2px 30px;
+          margin-top: 3px;
+          background-color: $grey-light;
+          color: $white;
+
+          &:disabled {
+            background-color: $white;
+            color: $grey-light;
+          }
+        }
+
+        select {
+          height: 30px;
+          color: $grey;
+        }
+      }
+    }
+  }
+
+  .row-controls-column {
+    text-align: center;
+
+    a {
+      margin-right: 15px;
+    }
+  }
+}

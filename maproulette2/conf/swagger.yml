@@ -1,0 +1,29 @@
+---
+  swagger: "2.0"
+  info:
+    title: "MapRoulette V2 API"
+    description: "API for MapRoulette enabling the creation and maintenance of MapRoulette challenges"
+    version: "2.0"
+    contact:
+      name: "maproulette@maproulette.org"
+    license:
+      name: "Apache License version 2.0"
+      url: "http://www.apache.org/licenses/"
+  basePath: "/api/v2"
+  host: ${API_HOST}
+  consumes:
+    - application/json
+  produces:
+    - application/json
+  tags:
+    - name: "Project"
+    - name: "Challenge"
+    - name: "Virtual Challenge"
+    - name: "Survey"
+    - name: "Task"
+    - name: "Keyword"
+    - name: "Tag (Deprecated)"
+    - name: "Data"
+    - name: "User"
+    - name: "Comment"
+

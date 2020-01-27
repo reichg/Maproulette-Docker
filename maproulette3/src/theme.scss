@@ -1,0 +1,441 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+// Disable mobile breakpoints in Bulma so we can control styling.
+$desktop: 50px;
+$tablet: 40px;
+
+.has-centered-children {
+  display: flex;
+  justify-content: center;
+}
+
+.subtitle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  svg {
+    fill: $subtitle-color;
+    height: 1em;
+    width: auto;
+    margin-left: 1em;
+  }
+
+  .busy-spinner {
+    margin-left: 1em;
+  }
+}
+
+.modal-content .message-header {
+  background-color: #182841;
+}
+
+.modal.is-active {
+  z-index: $layer-modal;
+}
+
+.full-screen-height {
+  height: calc(100vh - #{$navbar-height} - #{$subnav-height});
+
+  &.no-subnav {
+    height: calc(100vh - #{$navbar-height});
+  }
+
+  @media (max-width: $app-mobile-break) {
+    height: calc(
+      100vh - #{$mobile-navbar-height} - #{$mobile-subnav-height} - #{$mobile-address-bar-height}
+    );
+  }
+}
+
+.task .full-screen-height {
+  // no subnav in task mode or about pane
+  .leaflet-container {
+    height: calc(100vh - #{$navbar-height});
+
+    @media (max-width: $app-mobile-break) {
+      height: calc(
+        100vh - #{$mobile-navbar-height} - #{$mobile-address-bar-height}
+      );
+    }
+  }
+}
+
+// class for "full-screen" maps that calculates appropriate height based off
+// presence or absence of navbar and subnav.
+.full-screen-map {
+  .leaflet-container {
+    height: calc(100vh - #{$navbar-height});
+
+    @media (max-width: $app-mobile-break) {
+      height: calc(
+        100vh - #{$mobile-navbar-height} - #{$mobile-address-bar-height}
+      );
+    }
+  }
+
+  &.task,
+  &.about {
+    // no subnav in task mode or about pane
+    .leaflet-container {
+      height: calc(100vh - #{$navbar-height});
+
+      @media (max-width: $app-mobile-break) {
+        height: calc(
+          100vh - #{$mobile-navbar-height} - #{$mobile-address-bar-height}
+        );
+      }
+    }
+  }
+}
+
+// Dropdown that pops the menu out to the right
+.dropdown.popout-right {
+  .menu-wrapper {
+    position: fixed;
+    left: 65px;
+    z-index: $layer-popout;
+
+    .dropdown-menu {
+      padding-top: 0;
+      box-shadow: 0px 2px 6px 0px $box-shadow-color;
+    }
+  }
+}
+
+.dropdown.is-center {
+  .dropdown-menu {
+    left: auto;
+    right: -25%;
+  }
+}
+
+.button {
+  transition: all 0.25s ease-in-out;
+  &:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+  svg {
+    transition: all 0.25s ease-in-out;
+  }
+}
+
+.button.is-outlined {
+  border-radius: 20px;
+  border: 2px solid;
+  font-size: $size-6;
+  font-weight: $weight-medium;
+  padding: 0px 30px;
+  height: 30px;
+
+  &.is-small {
+    border-radius: 20px;
+    font-size: $size-8;
+    padding: 0px 30px;
+  }
+
+  &.is-big {
+    font-size: $size-5;
+    font-weight: $weight-normal;
+    border-radius: 30px;
+    padding: 0px 40px;
+  }
+}
+
+.button.is-clear {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+
+  .icon:first-child:last-child,
+  .icon:first-child:not(:last-child) {
+    margin-left: 0;
+    margin-right: 0;
+
+    &.is-danger {
+      svg {
+        fill: $danger;
+      }
+    }
+  }
+
+  svg.icon.is-danger {
+    fill: $danger;
+  }
+}
+
+.button.large-and-wide {
+  svg {
+    fill: $green;
+  }
+
+  height: auto;
+  padding: 1rem;
+  line-height: 1;
+  //width: 140px;
+  //height: 75px;
+  background-color: $grey-lightest-more;
+  font-size: $size-6;
+  font-weight: $weight-medium;
+  color: $green;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover,
+  &:enabled:focus {
+    box-shadow: 0px 2px 4px 0px $box-shadow-color;
+    color: $green;
+  }
+
+  .control-icon svg {
+    height: 20px;
+    width: auto;
+    margin: 0px 8px;
+    vertical-align: text-bottom;
+  }
+
+  &.full-width {
+    width: 100%;
+  }
+}
+
+.button.icon-only {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  justify-content: flex-start;
+  padding: 0px 6px;
+
+  .control-icon svg {
+    fill: $green;
+    height: 20px;
+    width: auto;
+    transition: fill 0.3s;
+
+    &.is-primary {
+      fill: $primary;
+    }
+
+    &.is-danger {
+      fill: $danger;
+    }
+  }
+
+  &.is-active .control-icon svg {
+    fill: $black;
+  }
+
+  &.is-small .control-icon svg {
+    height: 15px;
+  }
+
+  .control-label {
+    display: none;
+  }
+
+  &:hover {
+    .control-icon svg {
+      fill: $black;
+    }
+  }
+}
+
+.has-svg-icon {
+  svg {
+    height: 15px;
+    width: auto;
+    margin: 0 5px;
+  }
+
+  &.is-primary {
+    svg {
+      fill: $primary;
+    }
+
+    &:enabled:hover,
+    &:enabled:focus {
+      svg {
+        fill: $primary-invert;
+      }
+    }
+  }
+
+  &.is-loading {
+    svg {
+      visibility: hidden; // we only want to show the busy spinner
+    }
+  }
+}
+
+.button.is-primary {
+  @include invert-on-hover($primary, $white);
+}
+
+.button.is-secondary {
+  @include invert-on-hover($grey, $white);
+}
+
+.button.is-green {
+  @include invert-on-hover($green, $white);
+}
+
+.button.is-danger {
+  @include invert-on-hover($danger, $white);
+}
+
+.button.is-primary.is-loading {
+  &:enabled:focus:after {
+    // Change spinner color. Bulma css has !important so we have to as well.
+    border-color: transparent transparent $primary-invert $primary-invert !important;
+  }
+}
+
+.button-group {
+  button.button {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+a.is-danger {
+  color: $danger;
+}
+
+.full-width {
+  width: 100%;
+}
+
+img.is-circular {
+  border-radius: 50%;
+}
+
+// Animations
+.animate-slide-enter {
+  transform: translate(100%, 0);
+  transition: transform 1500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-slide-enter.animate-slide-enter-active {
+  transform: translate(0, 0);
+}
+
+.animate-slide-exit {
+  transform: translate(0, 0);
+  transition: transform 250ms ease-in;
+}
+
+.animate-slide-exit.animate-slide-exit-active {
+  transform: translate(-100%, 0);
+}
+
+.clickable {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@import '../node_modules/bulma/bulma.sass';
+@import '../node_modules/bulma-badge/dist/bulma-badge.sass';
+@import '../node_modules/bulma-timeline/dist/bulma-timeline.sass';
+@import '../node_modules/bulma-steps-component/bulma-steps.sass';
+@import '../node_modules/bulma-switch/dist/bulma-switch.sass';
+@import '../node_modules/bulma-checkradio/dist/css/bulma-checkradio.sass';
+
+.collapsible-icon {
+  height: 1em;
+
+  .icon {
+    @include arrow($minimizer-arrow-color);
+    @include dropdown-arrow();
+    position: static;
+  }
+}
+
+.is-expanded .collapsible-icon {
+  .icon {
+    margin-top: 5px;
+    transform: rotate(135deg);
+  }
+}
+
+.basic-dropdown-indicator {
+  @include arrow($grey-light);
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  position: relative;
+  margin-left: 0.5em;
+  top: 2px;
+}
+
+code {
+  color: $coral;
+  background-color: transparent;
+  padding: 0;
+  font-family: $family-sans-serif;
+  font-size: inherit;
+}
+
+.button.is-primary.is-outlined {
+  background-color: $white;
+}
+
+.pane-loading {
+  display: flex;
+  align-items: center;
+  font-size: $size-1;
+  height: calc(100vh - #{$navbar-height});
+
+  @media (max-width: $app-mobile-break) {
+    height: calc(
+      100vh - #{$mobile-navbar-height} - #{$mobile-address-bar-height}
+    );
+  }
+}
+
+// Add a short-and-wide variant of the rounded Bulma switch
+.switch[type='checkbox'].is-rounded.short-and-wide + label::before {
+  width: 60px;
+  height: 20px;
+}
+
+.switch[type='checkbox'].is-rounded.short-and-wide + label::after {
+  height: 14px;
+  width: 14px;
+  top: 3px;
+}
+
+.switch[type='checkbox'].short-and-wide:checked + label::after {
+  left: 41px;
+}
+
+.switch[type='checkbox'].short-and-wide + label {
+  padding-left: 74px;
+  padding-top: 0;
+}
+
+.switch-backdrop {
+  height: auto;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 12px;
+  background-color: $grey-lightest-more;
+  color: $green;
+  display: inline-block;
+}
+
+html {
+  background-color: $app-background;
+
+  // In case page doesn't fill screen on some devices
+  @media (max-width: $app-mobile-break) {
+    background-color: $grey-darkest;
+  }
+}

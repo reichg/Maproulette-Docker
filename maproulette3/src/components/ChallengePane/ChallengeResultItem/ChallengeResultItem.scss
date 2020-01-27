@@ -1,0 +1,158 @@
+@import '../../../theme.scss';
+
+.challenge-list__item.card {
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  margin-top: 20px;
+  border-radius: $radius-medium;
+
+  .challenge-list__item--featured-indicator {
+    background-color: $grey-light;
+    border-radius: $radius-medium 0 $radius-medium 0;
+    color: $white;
+    font-size: $size-9;
+    display: inline-block;
+    padding: 1px 5px;
+    position: absolute;
+    top: 0px;
+  }
+
+  .challenge-list__item-indicator-icon {
+    min-width: 20px;
+    width: 20px;
+    display: inline-block;
+    padding-top: 5px;
+    margin-right: 3px;
+
+    svg {
+      height: 15px;
+      width: auto;
+    }
+
+    &.saved {
+      svg {
+        fill: $coral;
+      }
+    }
+
+    &.virtual {
+      svg {
+        fill: $coral;
+      }
+    }
+  }
+
+  .challenge-list__item-title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .challenge-list__item__name {
+    font-size: $size-5;
+  }
+
+  .challenge-list__item__project-name {
+    margin-left: 23px;
+    font-size: $size-8;
+    min-height: 1em;
+    color: $grey-light;
+  }
+
+  .challenge-list__item__field-label {
+    text-transform: uppercase;
+    font-weight: $weight-medium;
+    letter-spacing: $letter-spacing-little;
+    margin-right: 0.5em;
+
+    &:after {
+      content: ':';
+    }
+  }
+
+  .challenge-list__item__blurb {
+    margin: 15px 0 20px 0px;
+    @include constrained-text-content();
+    @include markdown-content();
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+
+  .challenge-list__item__task-progress {
+    margin-bottom: 20px;
+    font-size: $size-8;
+  }
+
+  .challenge-list__item__controls {
+    display: flex;
+    justify-content: space-between;
+
+    &__manage {
+      margin-top: 4px;
+    }
+  }
+
+  button.start-challenge {
+    @include invert-on-hover($green, $white);
+  }
+
+  button.save-challenge-toggle {
+    @include invert-on-hover($grey, $white);
+  }
+
+  .card-header {
+    background-color: $white;
+    color: $blue;
+    font-weight: $weight-normal;
+    padding: 1rem;
+    border-radius: $radius-medium;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    &-icon {
+      align-items: flex-end;
+
+      .icon {
+        @include arrow($minimizer-arrow-color);
+        @include dropdown-arrow();
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .card-content {
+    color: $grey;
+    font-size: $size-7;
+    max-height: 0;
+    transition: max-height 0.25s, padding 0.25s;
+    padding: 0 2.5rem;
+    overflow: hidden;
+  }
+
+  &.is-active {
+
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.1);
+
+    .card-content {
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 1.5rem 2.5rem;
+    }
+
+    .card-header {
+      border-radius: $radius-medium $radius-medium 0 0;
+      box-shadow: none;
+      border-bottom: 2px solid $grey-lightest-more;
+
+      .icon {
+        margin-top: 5px;
+        transform: rotate(135deg);
+      }
+    }
+  }
+}
