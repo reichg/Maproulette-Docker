@@ -1,0 +1,46 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: mdillon/postgis
+    container_name: mr-postgis
+    volumes:
+      - /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: mrdata
+      POSTGRES_USER: mrdbuser
+      POSTGRES_PASSWORD: mrdbpass
+
+  frontend:
+    container_name: maproulette-frontend
+    build:
+      context: .
+      dockerfile: Frontend_Dockerfile
+    ports:
+      - "3000:80"
+    links:
+      - api
+
+  api:
+    container_name: maproulette-api
+    build:
+      context: .
+      dockerfile: API_Dockerfile
+    ports:
+      - "9000:9000"
+    links:
+      - postgres
+    environment: 
+      WAIT_HOSTS: postgres:5432
+    command:  sh -c "
+      /wait &&
+      cd /MapRouletteAPI &&
+      rm RUNNING_PID || true &&
+      /MapRouletteAPI/bin/maprouletteapi 
+        -Dhttp.port=9000 
+        -DAPI_HOST="maproulette.com"
+        -Dconfig.resource=docker.conf 
+        -Djavax.net.ssl.trustStore=/MapRouletteAPI/conf/osmcacerts 
+        -Djavax.net.ssl.trustStorePassword=openstreetmap" &&
