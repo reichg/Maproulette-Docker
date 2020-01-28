@@ -44,10 +44,10 @@ ADD ./maproulette2/conf/dev.conf /MapRouletteAPI/conf/docker.conf
 # RUN chmod 777 /MapRouletteAPI/setupServer.sh
 WORKDIR /MapRouletteAPI
 # Move the truststore to the correct location
-ADD ./maproulette2-docker/api/osmcacerts conf/
+ADD ./maproulette2/conf/osmcacerts_dev conf/
 
-ARG APIHOST="maproulette.org"
-ENV APIHOST=${APIHOST}
+# ARG APIHOST="maproulette.org"
+# ENV APIHOST=${APIHOST}
 ENV PORT=9000
 
 # ENTRYPOINT ["/etc/bootstrap.sh"]
