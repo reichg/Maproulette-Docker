@@ -15,18 +15,9 @@ EXPOSE 80
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.0.0/wait /wait
 RUN chmod +x /wait
 
-# ARG GIT="maproulette/maproulette2"
-# RUN echo ${GIT}
-# ARG CACHEBUST=1
-# RUN echo $CACHEBUST
-# Download Maproulette V2
-# RUN git clone https://github.com/${GIT}.git /maproulette-api
 COPY ./maproulette2 /maproulette-api
 RUN chmod 777 /maproulette-api
 WORKDIR /maproulette-api
-# ARG VERSION="LATEST"
-# RUN echo $VERSION
-# RUN if [ "${VERSION}" != "LATEST" ]; then git checkout tags/${VERSION} ; fi
 
 # package Maproulette V2
 ARG APIHOST="localhost:9000"
@@ -36,13 +27,9 @@ RUN unzip -d / target/universal/MapRouletteAPI.zip
 WORKDIR /MapRouletteAPI
 
 # Bootstrap commands
-# ADD ./maproulette2-docker/api/bootstrap.sh /etc/bootstrap.sh
-# ADD ./maproulette2-docker/api/setupServer.sh /MapRouletteAPI/setupServer.sh
 ADD ./maproulette2/conf/dev.conf /MapRouletteAPI/conf/docker.conf
-# ADD ./maproulette2/remove_pid.sh /MapRouletteAPI/remove_pid.sh
-# RUN chmod 777 /etc/bootstrap.sh
-# RUN chmod 777 /MapRouletteAPI/setupServer.sh
 WORKDIR /MapRouletteAPI
+
 # Move the truststore to the correct location
 ADD ./maproulette2/conf/osmcacerts_dev conf/
 

@@ -4,18 +4,9 @@ EXPOSE 3000
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y jq git
 
-# ARG GIT="osmlab/maproulette3"
-# RUN echo $GIT
-# ARG CACHEBUST=2
-# RUN echo $CACHEBUST
-# Download Maproulette Frontend
-#RUN git clone https://github.com/${GIT}.git /maproulette-frontend
 COPY ./maproulette3 /maproulette-frontend
 
 WORKDIR /maproulette-frontend
-# ARG VERSION="LATEST"
-# RUN echo $VERSION
-# RUN if [ "${VERSION}" != "LATEST" ]; then git checkout tags/${VERSION} ; fi
 RUN chmod 755 /maproulette-frontend
 ADD ./maproulette3/.env.development.local /maproulette-frontend/.env.development.local
 
