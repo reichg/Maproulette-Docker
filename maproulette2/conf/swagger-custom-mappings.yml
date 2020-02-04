@@ -1,6 +1,0 @@
----
-  - type: play\.api\.libs\.json\.jsvalue
-    specAsParameter: []
-    specAsProperty:
-      type: string
-
