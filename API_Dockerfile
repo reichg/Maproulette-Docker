@@ -27,11 +27,11 @@ RUN unzip -d / target/universal/MapRouletteAPI.zip
 WORKDIR /MapRouletteAPI
 
 # Bootstrap commands
-ADD ./maproulette2/conf/dev.conf /MapRouletteAPI/conf/docker.conf
+ADD dev.conf /MapRouletteAPI/conf/docker.conf
 WORKDIR /MapRouletteAPI
 
 # Move the truststore to the correct location
-ADD ./maproulette2/conf/osmcacerts_dev conf/
+ADD osmcacerts_dev conf/
 
 # ARG APIHOST="maproulette.org"
 # ENV APIHOST=${APIHOST}
