@@ -33,8 +33,6 @@ WORKDIR /MapRouletteAPI
 # Move the truststore to the correct location
 ADD osmcacerts_dev conf/
 
-# ARG APIHOST="maproulette.org"
-# ENV APIHOST=${APIHOST}
 ENV PORT=9000
 
 # ENTRYPOINT ["/etc/bootstrap.sh"]
