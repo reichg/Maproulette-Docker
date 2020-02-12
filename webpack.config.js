@@ -13,5 +13,8 @@ module.exports = {
     watchOptions: {
         aggregateTimeout: 600,
         ignored: ['node_modules/**']
-      }
+    }
 }
+
+
+// "start": "npm-run-all -p update-layers watch-postcss start-js",

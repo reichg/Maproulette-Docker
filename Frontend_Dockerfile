@@ -5,15 +5,17 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y jq git
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn apt-key add - && \
     echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install --no-install-recommends yarn
+    apt-get install --no-install-recommends yarn 
 
-WORKDIR /maproulette-frontend
-COPY ./maproulette3 /maproulette-frontend
+COPY ./maproulette3 /var/www/maproulette/maproulette3
 
 # RUN chmod 755 /maproulette-frontend
-ADD .env.development.local /maproulette-frontend/.env.development.local
+ADD .env.development.local /var/www/maproulette/maproulette3
 
+WORKDIR /var/www/maproulette/maproulette3
+
+RUN yarn
 # Build the Maproulette Frontend
-RUN yarn && yarn run build
+CMD yarn start
 
-EXPOSE 3000
+# EXPOSE 3000
