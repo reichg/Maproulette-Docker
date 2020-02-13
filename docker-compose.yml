@@ -19,24 +19,24 @@ services:
       context: .
       dockerfile: Frontend_Dockerfile
     volumes: 
-      - ./maproulette3/src:/var/www/maproulette/maproulette3/src
+      - ./maproulette3/src:/var/www/maproulette/maproulette3/src:cached
     expose:
       - "3000"
     ports:
       - "3000:3000"
     links:
       - api
+    command: yarn start-webpack
     # stdin_open: true
     # tty: true
-    command: nodemon
 
   api:
     container_name: maproulette-api
     build:
       context: .
       dockerfile: API_Dockerfile
-    volumes:
-      - ./maproulette2/app:/var/www/maproulette/maproulette2-api/app
+    # volumes:
+    #   - ./maproulette2/app:/var/www/maproulette/maproulette2-api/app:cached
     ports:
       - "9000:9000"
     links:
@@ -46,7 +46,7 @@ services:
       API_HOST: localhost:9000
     command:  sh -c "
       /wait &&
-      cd /maproulette2-api &&
+      cd /MapRouletteAPI &&
       rm RUNNING_PID || true &&
       /MapRouletteAPI/bin/maprouletteapi 
         -Dhttp.port=9000 
