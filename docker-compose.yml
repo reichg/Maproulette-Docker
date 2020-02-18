@@ -19,16 +19,14 @@ services:
       context: .
       dockerfile: Frontend_Dockerfile
     volumes: 
-      - ./maproulette3/src:/var/www/maproulette/maproulette3/src:cached
+      - ./maproulette3/src:/var/www/maproulette/maproulette3/src
     expose:
       - "3000"
     ports:
       - "3000:3000"
     links:
       - api
-    command: yarn start-webpack
-    # stdin_open: true
-    # tty: true
+    command: yarn start
 
   api:
     container_name: maproulette-api

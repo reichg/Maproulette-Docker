@@ -16,6 +16,6 @@ WORKDIR /var/www/maproulette/maproulette3
 
 RUN yarn
 # Build the Maproulette Frontend
-CMD yarn start-webpack
+CMD yarn start
 
 # EXPOSE 3000
