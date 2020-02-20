@@ -10,13 +10,18 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y apt-transport-htt
 RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 RUN apt-get update && apt-get upgrade -y && apt-get install -y scala sbt unzip wget git openssh-server jq g++ build-essential
-# EXPOSE 80
 
+# This allows a command to make the API container wait for postgres
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.0.0/wait /wait
 RUN chmod +x /wait
 
+# Copy backend from host to container
 COPY ./maproulette2 /maproulette-api
+
+#Make this folder an executable
 RUN chmod 777 /maproulette-api
+
+# Make this the current working directory in container
 WORKDIR /maproulette-api
 
 # package Maproulette V2
@@ -27,12 +32,8 @@ RUN unzip -d / target/universal/MapRouletteAPI.zip
 WORKDIR /MapRouletteAPI
 
 # Bootstrap commands
-ADD dev.conf /MapRouletteAPI/conf/docker.conf
+ADD maproulette2/conf/dev.conf conf/docker.conf
 WORKDIR /MapRouletteAPI
 
 # Move the truststore to the correct location
 ADD osmcacerts_dev conf/
-
-ENV PORT=9000
-
-# ENTRYPOINT ["/etc/bootstrap.sh"]

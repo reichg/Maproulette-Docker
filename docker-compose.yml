@@ -33,8 +33,6 @@ services:
     build:
       context: .
       dockerfile: API_Dockerfile
-    # volumes:
-    #   - ./maproulette2/app:/var/www/maproulette/maproulette2-api/app:cached
     ports:
       - "9000:9000"
     links:
@@ -48,7 +46,6 @@ services:
       rm RUNNING_PID || true &&
       /MapRouletteAPI/bin/maprouletteapi 
         -Dhttp.port=9000 
-        -DAPI_HOST="maproulette.org"
         -Dconfig.resource=docker.conf 
-        -Djavax.net.ssl.trustStore=/maproulette2-api/conf/osmcacerts_dev 
+        -Djavax.net.ssl.trustStore=/MapRouletteAPI/conf/osmcacerts_dev 
         -Djavax.net.ssl.trustStorePassword=openstreetmap"
