@@ -12,7 +12,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | APT_KEY_DONT_WARN_ON_DAN
 COPY ./maproulette3 /var/www/maproulette/maproulette3
 
 # RUN chmod 755 /maproulette-frontend
-ADD .env.development.local /var/www/maproulette/maproulette3
+ADD maproulette3/.env.development.local /var/www/maproulette/maproulette3
 
 #Make this the current work directory
 WORKDIR /var/www/maproulette/maproulette3

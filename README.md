@@ -1,11 +1,16 @@
-# maproulette-local-docker
+# Maproulette-Docker
 
-Clone Maproulette repos to their respective folders.
+## Getting Started
+1. Clone the Maproulette-Docker repo.
+2. You can then remove the maproulette2 and maproulette3 folders as they will be cloned.
+3. Clone Maproulette repos at the top level of the Maproulette-Docker repo. (Github links further down)
 
 ## maproulette3:
-* Clone MapRoulette 3 `git clone https://github.com/maproulette/maproulette3.git`
-* `cd` into the newly created directory `cd maproulette3`
-Create a `.env.development.local` file and then look through `.env` at the
+### Front-end Configuration
+1. Clone maproueltte3: `git clone https://github.com/maproulette/maproulette3.git`
+2. `cd` into the newly created directory `cd maproulette3`.
+    * if you want a quick setup check the `Maproulette-Docker/useful_files` folder for an already configured `.env.development.local` file. If you want to set up your own configuration then follow the next step instead of this one. If you skip this option you may need to refer to the maproulette3 github page for further information about configuration.
+3. Create a `.env.development.local` file and then look through `.env` at the
    available configuration options and override any desired settings in your
    new `.env.development.local`
   
@@ -22,18 +27,15 @@ For more details on the app registration process, see the [OSM OAuth wiki page](
 
 ### Server Configuration
 
-* Clone MapRoulette 2 `git clone https://github.com/maproulette/maproulette2.git`
-* `cd` into the newly created directory `cd maproulette2`
-* Create a configuration file by copying the template file `cp conf/dev.conf.example conf/dev.conf`
-* Open `dev.conf` in a text editor and change at least the following entries:
+1. Clone maproulette2: `git clone https://github.com/maproulette/maproulette2.git`
+2. `cd` into the newly created directory `cd maproulette2`
+    * if you want a quick setup check the `Maproulette-Docker/useful_files` folder for an already configured `dev.conf` file. If you want to set up your own configuration then follow the next step instead of this one. If you skip this option you may need to refer to the maproulette2 github page for further information about configuration.
+3. Create a configuration file by copying the template file `cp conf/dev.conf.example conf/dev.conf`
+4. Open `dev.conf` in a text editor and change at least the following entries:
     * `super.key`: a randomly chosen API key for superuser access
     * `super.accounts`: a comma-separated list of OSM accound IDs whose corresponding MapRoulette users will have superuser access. Can be an empty string.
     * `mapillary.clientId`: a [Mapillary Client ID](https://www.mapillary.com/dashboard/developers), needed if you want to use any of the Mapillary integrations.
     * `osm.consumerKey` and `osm.consumerSecret`: the OAuth keys from your OSM OAuth app you created earlier.
 * Save `dev.conf`
-
-## maproulette2-docker:
-* Clone MapRoulette 2 Docker `git clone https://github.com/maproulette/maproulette2-docker.git`
-
 
 You can now run `docker-compose up`
