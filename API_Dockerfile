@@ -25,15 +25,16 @@ RUN chmod 777 /maproulette-api
 WORKDIR /maproulette-api
 
 # package Maproulette V2
-ARG APIHOST="localhost:9000"
-RUN echo ${APIHOST}
-RUN export API_HOST=${APIHOST};sbt clean compile dist
-RUN unzip -d / target/universal/MapRouletteAPI.zip
-WORKDIR /MapRouletteAPI
+# ARG APIHOST="localhost:9000"
+# RUN echo ${APIHOST}
+# RUN export API_HOST=${APIHOST};sbt clean compile dist
+RUN sbt clean
+# RUN unzip -d / target/universal/MapRouletteAPI.zip
+# WORKDIR /MapRouletteAPI
 
 # Bootstrap commands
-ADD maproulette2/conf/dev.conf conf/docker.conf
-WORKDIR /MapRouletteAPI
+ADD maproulette2/conf/dev.conf /conf/docker.conf
+# WORKDIR /MapRouletteAPI
 
 # Move the truststore to the correct location
 ADD osmcacerts_dev conf/
