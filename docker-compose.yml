@@ -33,6 +33,8 @@ services:
     build:
       context: .
       dockerfile: API_Dockerfile
+    volumes: 
+      - ./maproulette2:/maproulette-api
     ports:
       - "9000:9000"
     links:
@@ -42,10 +44,4 @@ services:
       API_HOST: localhost:9000
     command:  sh -c "
       /wait &&
-      cd /MapRouletteAPI &&
-      rm RUNNING_PID || true &&
-      /MapRouletteAPI/bin/maprouletteapi 
-        -Dhttp.port=9000 
-        -Dconfig.resource=docker.conf 
-        -Djavax.net.ssl.trustStore=/MapRouletteAPI/conf/osmcacerts_dev 
-        -Djavax.net.ssl.trustStorePassword=openstreetmap"
+      sbt run -Dconfig.file=./conf/dev.conf"
